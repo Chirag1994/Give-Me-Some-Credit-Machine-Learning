@@ -1,0 +1,14 @@
+numpy
+Flask
+gunicorn
+pandas
+PyYAML
+evidently
+matplotlib
+scikit-learn
+joblib
+black
+pyunpack
+requests
+patool
+-e .
