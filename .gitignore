@@ -130,3 +130,6 @@ dmypy.json
 
 #vs code
 .vscode/
+
+# Artifacts folder
+Credit_Default_Pipeline/
