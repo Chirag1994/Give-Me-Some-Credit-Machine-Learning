@@ -133,3 +133,6 @@ dmypy.json
 
 # Artifacts folder
 Credit_Default_Pipeline/
+
+# Logs folder
+logs/
