@@ -9,6 +9,8 @@ from Give_Me_Some_Credit.entity.config_entity import (
     DataValidationConfig,
     DataTransformationConfig,
     ModelTrainerConfig,
+    ModelEvaluationConfig,
+    ModelPusherConfig,
 )
 from Give_Me_Some_Credit.entity.artifact_entity import (
     DataIngestionArtifact,
@@ -171,5 +173,38 @@ class Configuration:
             )
             logging.info(f"Model trainer config: {model_trainer_config}")
             return model_trainer_config
+        except Exception as e:
+            raise CreditException(e, sys) from e
+
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        try:
+            model_evaluation_config = self.config_info[MODEL_EVALUATION_CONFIG_KEY]
+            artifact_dir = os.path.join(
+                self.training_pipeline_config.artifact_dir,
+                MODEL_EVALUATION_ARTIFACT_DIR,
+            )
+            model_evaluation_file_path = os.path.join(
+                artifact_dir, model_evaluation_config[MODEL_EVALUATION_FILE_NAME_KEY]
+            )
+            model_evaluation_config = ModelEvaluationConfig(
+                model_evaluation_file_path=model_evaluation_file_path,
+                time_stamp=self.timestamp,
+            )
+            logging.info(f"Model Evaluation Config: {model_evaluation_config}")
+            return model_evaluation_config
+        except Exception as e:
+            raise CreditException(e, sys) from e
+
+    def get_model_pusher_config(self) -> ModelPusherConfig:
+        try:
+            model_pusher_config = self.config_info[MODEL_PUSHER_CONFIG_KEY]
+            export_dir_path = os.path.join(
+                ROOT_DIR,
+                model_pusher_config[MODEL_PUSHER_MODEL_EXPORT_DIR_KEY],
+                self.timestamp,
+            )
+            model_pusher_config = ModelPusherConfig(export_dir_path=export_dir_path)
+            logging.info(f"Model Pusher config: {model_pusher_config}")
+            return model_pusher_config
         except Exception as e:
             raise CreditException(e, sys) from e

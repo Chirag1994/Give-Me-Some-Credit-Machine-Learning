@@ -1,13 +1,13 @@
 columns:
   RevolvingUtilizationOfUnsecuredLines: int
   age: int
-  NumberOfTime30-59DaysPastDueNotWorse: float
+  NumberOfTime30_59DaysPastDueNotWorse: float
   DebtRatio: float
   MonthlyIncome: float
   NumberOfOpenCreditLinesAndLoans: int
   NumberOfTimes90DaysLate: int
   NumberRealEstateLoansOrLines: int
-  NumberOfTime60-89DaysPastDueNotWorse: int
+  NumberOfTime60_89DaysPastDueNotWorse: int
   NumberOfDependents: float
 
 target_column: SeriousDlqin2yrs
@@ -16,22 +16,18 @@ num_cols: 11
 
 use_cols:
   - age
-  - NumberOfTime30-59DaysPastDueNotWorse
-  - NumberOfTime60-89DaysPastDueNotWorse
+  - NumberOfTime30_59DaysPastDueNotWorse
+  - NumberOfTime60_89DaysPastDueNotWorse
   - NumberOfTimes90DaysLate
   - RevolvingUtilizationOfUnsecuredLines
   - SeriousDlqin2yrs
-
-variables_to_rename:
-  NumberOfTime30-59DaysPastDueNotWorse: NumberOfTime30_59DaysPastDueNotWorse
-  NumberOfTime60-89DaysPastDueNotWorse: NumberOfTime60_89DaysPastDueNotWorse
 
 outlier_removal_vars:
   - age
 
 rare_label_vars_with_same_tolerance:
-  - NumberOfTime30-59DaysPastDueNotWorse
-  - NumberOfTime60-89DaysPastDueNotWorse
+  - NumberOfTime30_59DaysPastDueNotWorse
+  - NumberOfTime60_89DaysPastDueNotWorse
   - NumberOfTimes90DaysLate
 
 cube_root_of_age:
@@ -41,6 +37,6 @@ cube_root_of_revolving_utilization_of_unsecured_lines:
   - RevolvingUtilizationOfUnsecuredLines
 
 total_number_of_dues:
-  - NumberOfTime30-59DaysPastDueNotWorse
-  - NumberOfTime60-89DaysPastDueNotWorse
+  - NumberOfTime30_59DaysPastDueNotWorse
+  - NumberOfTime60_89DaysPastDueNotWorse
   - NumberOfTimes90DaysLate

@@ -32,7 +32,8 @@ ModelTrainerArtifact = namedtuple(
     [
         "trained_model_file_path",
         "train_log_loss",
-        "test_log_loss", "train_auc_score",
+        "test_log_loss",
+        "train_auc_score",
         "test_auc_score",
         "is_trained",
         "message",
@@ -50,4 +51,12 @@ MetricsInfoArtifact = namedtuple(
         "test_auc_score",
         "index_number",
     ],
+)
+
+ModelEvaluationArtifact = namedtuple(
+    "ModelEvaluationArtifact", ["is_model_accepted", "evaluated_model_path"]
+)
+
+ModelPusherArtifact = namedtuple(
+    "ModelPusherArtifact", ["is_model_pushed", "model_export_file_path"]
 )

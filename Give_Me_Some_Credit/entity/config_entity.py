@@ -42,3 +42,26 @@ BestModel = namedtuple(
     "BestModel",
     ["model_serial_number", "model", "best_model", "best_parameters", "best_score"],
 )
+
+ModelEvaluationConfig = namedtuple(
+    "ModelEvaluationConfig", ["model_evaluation_file_path", "time_stamp"]
+)
+
+ModelPusherConfig = namedtuple("ModelPusherConfig", ["export_dir_path"])
+
+Experiment = namedtuple(
+    "Experiment",
+    [
+        "experiment_id",
+        "initialization_timestamp",
+        "artifact_time_stamp",
+        "running_status",
+        "start_time",
+        "stop_time",
+        "execution_time",
+        "message",
+        "experiment_file_path",
+        "auc_score",
+        "is_model_accepted",
+    ],
+)
