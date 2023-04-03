@@ -136,3 +136,6 @@ Credit_Default_Pipeline/
 
 # Logs folder
 logs/
+
+# Saved models
+saved_models/
