@@ -37,6 +37,7 @@ ModelTrainerArtifact = namedtuple(
         "test_auc_score",
         "is_trained",
         "message",
+        "threshold",
     ],
 )
 
@@ -50,6 +51,7 @@ MetricsInfoArtifact = namedtuple(
         "train_auc_score",
         "test_auc_score",
         "index_number",
+        "threshold",
     ],
 )
 

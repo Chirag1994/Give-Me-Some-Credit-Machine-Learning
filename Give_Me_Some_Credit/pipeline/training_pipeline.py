@@ -98,7 +98,9 @@ class Pipeline(Thread):
                 model_trainer_config=self.config.get_model_trainer_config(),
                 data_transformation_artifact=data_transformation_artifact,
             )
-            return model_trainer.initiate_model_trainer()
+            model_trainer = model_trainer.initiate_model_trainer()
+            logging.info(f"Best threshold found is {model_trainer.threshold}.")
+            return model_trainer
         except Exception as e:
             raise CreditException(e, sys) from e
 

@@ -27,7 +27,7 @@ class CreditEstimatorModel:
 
     def predict(self, X):
         transformed_features = self.preprocessing_object.transform(X)
-        return self.trained_model_object.predict(transformed_features)
+        return self.trained_model_object.predict_proba(transformed_features)
 
     def __repr__(self):
         return f"{type(self.trained_model_object).__name__}()"
@@ -94,7 +94,7 @@ class ModelTrainer:
 
             model_list = [model.best_model for model in grid_searched_best_model_list]
             logging.info(
-                f"Evaluating all trained models on training and testing datasets."
+                "Evaluating all trained models on training and testing datasets."
             )
             metric_info = evaluate_classification_model(
                 model_list=model_list,
@@ -106,6 +106,7 @@ class ModelTrainer:
             )
             logging.info("Best model found on both training and testing datasets.")
 
+            threshold = metric_info.threshold
             preprocessing_obj = load_object(
                 file_path=self.data_transformation_artifact.preprocessed_object_file_path
             )
@@ -127,6 +128,7 @@ class ModelTrainer:
                 test_log_loss=metric_info.test_log_loss,
                 train_auc_score=metric_info.train_auc_score,
                 test_auc_score=metric_info.test_auc_score,
+                threshold=threshold,
             )
             logging.info(f"Model Trainer Artifact: {model_trainer_artifact}")
             return model_trainer_artifact

@@ -1,9 +1,10 @@
 import os
 import sys
 import pandas as pd
+from Give_Me_Some_Credit.constants import *
 from Give_Me_Some_Credit.logger import logging
-from Give_Me_Some_Credit.util.util import load_object
 from Give_Me_Some_Credit.exception import CreditException
+from Give_Me_Some_Credit.util.util import load_object, read_yaml_file
 
 
 class DefaultData:
@@ -45,7 +46,14 @@ class DefaultData:
     def get_credit_input_dataframe(self):
         try:
             credit_input_dict = self.get_credit_data_as_dict()
-            return pd.DataFrame(credit_input_dict)
+            df = pd.DataFrame(credit_input_dict)
+            schema_file_path = os.path.join(ROOT_DIR, SCHEMA_FILE_PATH)
+            dataset_schema = read_yaml_file(file_path=schema_file_path)
+            cols_to_drop = [
+                col for col in df.columns if col not in dataset_schema[USE_COLS_KEY]
+            ]
+            df.drop(columns=cols_to_drop, axis=1, inplace=True)
+            return df
         except Exception as e:
             raise CreditException(e, sys) from e
 
@@ -97,7 +105,18 @@ class DefaultPredictor:
         try:
             model_path = self.get_latest_model_path()
             model = load_object(file_path=model_path)
-            default_probability = model.predict_proba(X)[:, 1]
-            return default_probability
+            df = pd.DataFrame(X)
+            if df.shape == (1, 5):
+                default_probability = model.predict(df)[:, 1]
+                return default_probability
+            elif df.shape[1] == 12:
+                schema_file_path = os.path.join(ROOT_DIR, SCHEMA_FILE_PATH)
+                dataset_schema = read_yaml_file(file_path=schema_file_path)
+                cols_to_drop = [
+                    col for col in df.columns if col not in dataset_schema[USE_COLS_KEY]
+                ]
+                df.drop(columns=cols_to_drop, axis=1, inplace=True)
+                default_probability = model.predict(df)[:, 1]
+                return default_probability
         except Exception as e:
             raise CreditException(e, sys) from e

@@ -197,11 +197,12 @@ class Configuration:
 
     def get_model_pusher_config(self) -> ModelPusherConfig:
         try:
+            time_stamp = f"{datetime.now().strftime('%Y%m%d%H%M%S')}"
             model_pusher_config = self.config_info[MODEL_PUSHER_CONFIG_KEY]
             export_dir_path = os.path.join(
                 ROOT_DIR,
                 model_pusher_config[MODEL_PUSHER_MODEL_EXPORT_DIR_KEY],
-                self.timestamp,
+                time_stamp,
             )
             model_pusher_config = ModelPusherConfig(export_dir_path=export_dir_path)
             logging.info(f"Model Pusher config: {model_pusher_config}")

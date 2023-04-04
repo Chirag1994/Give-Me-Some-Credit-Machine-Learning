@@ -11,4 +11,5 @@ black
 pyunpack
 requests
 patool
+dill
 -e .

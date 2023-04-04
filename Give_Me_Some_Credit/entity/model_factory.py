@@ -4,17 +4,31 @@ import yaml
 import importlib
 import numpy as np
 import pandas as pd
+from sklearn.metrics import roc_curve
 from Give_Me_Some_Credit.constants import *
 from Give_Me_Some_Credit.logger import logging
 from sklearn.metrics import roc_auc_score, log_loss
-from Give_Me_Some_Credit.exception import CreditException
 from sklearn.calibration import CalibratedClassifierCV
+from Give_Me_Some_Credit.exception import CreditException
 from Give_Me_Some_Credit.entity.artifact_entity import MetricsInfoArtifact
 from Give_Me_Some_Credit.entity.config_entity import (
     BestModel,
     GridSearchBestModel,
     InitializedModelDetail,
 )
+
+
+def search_optimum_threshold(y_test, y_pred):
+    try:
+        logging.info("Searching optimum threshold.")
+        fpr, tpr, thresholds = roc_curve(y_test, y_pred)
+        J = tpr - fpr
+        ix = np.argmax(J)
+        best_threshold = thresholds[ix]
+        logging.info(f"Optimum threshold found: {float(best_threshold)}")
+        return float(best_threshold)
+    except Exception as e:
+        raise CreditException(e, sys) from e
 
 
 def evaluate_classification_model(
@@ -31,6 +45,7 @@ def evaluate_classification_model(
 
             y_train_pred = model.predict_proba(X_train)[:, 1]
             y_test_pred = model.predict_proba(X_test)[:, 1]
+            threshold = search_optimum_threshold(y_test, y_test_pred)
 
             train_auc_score = roc_auc_score(y_true=y_train, y_score=y_train_pred)
             test_auc_score = roc_auc_score(y_true=y_test, y_score=y_test_pred)
@@ -61,6 +76,7 @@ def evaluate_classification_model(
                     train_log_loss=train_log_loss,
                     test_log_loss=test_log_loss,
                     index_number=index_number,
+                    threshold=threshold,
                 )
             logging.info(f"Acceptable model found {metric_info_artifact}.")
             index_number += 1
