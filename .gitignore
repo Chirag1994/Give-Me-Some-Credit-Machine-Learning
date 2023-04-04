@@ -139,3 +139,6 @@ logs/
 
 # Saved models
 saved_models/
+
+# Temporary notebook
+Untitled.ipynb
