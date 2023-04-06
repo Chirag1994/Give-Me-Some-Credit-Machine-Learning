@@ -10,9 +10,9 @@ from Give_Me_Some_Credit.util.util import load_object, read_yaml_file
 class DefaultData:
     def __init__(
         self,
-        RevolvingUtilizationOfUnsecuredLines: int,
+        RevolvingUtilizationOfUnsecuredLines: float,
         age: int,
-        NumberOfTime30_59DaysPastDueNotWorse: float,
+        NumberOfTime30_59DaysPastDueNotWorse: int,
         DebtRatio: float,
         MonthlyIncome: float,
         NumberOfOpenCreditLinesAndLoans: int,

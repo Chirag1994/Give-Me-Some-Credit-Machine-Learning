@@ -1,7 +1,7 @@
 columns:
-  RevolvingUtilizationOfUnsecuredLines: int
+  RevolvingUtilizationOfUnsecuredLines: float
   age: int
-  NumberOfTime30_59DaysPastDueNotWorse: float
+  NumberOfTime30_59DaysPastDueNotWorse: int
   DebtRatio: float
   MonthlyIncome: float
   NumberOfOpenCreditLinesAndLoans: int

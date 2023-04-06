@@ -20,7 +20,7 @@ ROOT_DIR = os.getcwd()
 LOG_FOLDER_NAME = "logs"
 PIPELINE_FOLDER_NAME = "Give_Me_Some_Credit"
 SAVED_MODELS_DIR_NAME = "saved_models"
-MODEL_CONFIG_FILE_PATH = os.path.join(ROOT_DIR, CONFIG_DIR, "models.yaml")
+MODEL_CONFIG_FILE_PATH = os.path.join(ROOT_DIR, CONFIG_DIR, "model.yaml")
 LOG_DIR = os.path.join(ROOT_DIR, LOG_FOLDER_NAME)
 PIPELINE_DIR = os.path.join(ROOT_DIR, PIPELINE_FOLDER_NAME)
 MODEL_DIR = os.path.join(ROOT_DIR, SAVED_MODELS_DIR_NAME)
@@ -108,11 +108,11 @@ def predict():
     context = {DEFAULT_DATA_KEY: None, SERIOUSDLQIN2YRS_KEY: None}
 
     if request.method == "POST":
-        RevolvingUtilizationOfUnsecuredLines = int(
+        RevolvingUtilizationOfUnsecuredLines = float(
             request.form["RevolvingUtilizationOfUnsecuredLines"]
         )
         age = int(request.form["age"])
-        NumberOfTime30_59DaysPastDueNotWorse = float(
+        NumberOfTime30_59DaysPastDueNotWorse = int(
             request.form["NumberOfTime30_59DaysPastDueNotWorse"]
         )
         DebtRatio = float(request.form["DebtRatio"])
@@ -125,7 +125,7 @@ def predict():
         NumberOfTime60_89DaysPastDueNotWorse = int(
             request.form["NumberOfTime60_89DaysPastDueNotWorse"]
         )
-        NumberOfDependents = float(request.form(["NumberOfDependents"]))
+        NumberOfDependents = float(request.form["NumberOfDependents"])
 
         default_data = DefaultData(
             RevolvingUtilizationOfUnsecuredLines=RevolvingUtilizationOfUnsecuredLines,
@@ -142,11 +142,13 @@ def predict():
         credit_df = default_data.get_credit_input_dataframe()
 
         default_predictor = DefaultPredictor(model_dir=MODEL_DIR)
+        print(default_predictor)
         defaulter = default_predictor.predict(X=credit_df)
         context = {
             DEFAULT_DATA_KEY: default_data.get_credit_data_as_dict(),
             SERIOUSDLQIN2YRS_KEY: defaulter,
         }
+        print(context)
         return render_template("predict.html", context=context)
     return render_template("predict.html", context=context)
 
