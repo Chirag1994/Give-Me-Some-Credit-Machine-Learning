@@ -247,7 +247,7 @@ class Pipeline(Thread):
         except Exception as e:
             raise CreditException(e, sys) from e
 
-    @staticmethod
+    @classmethod
     def get_experiment_status(cls, limit_num: int = 5) -> pd.DataFrame:
         try:
             if os.path.exists(Pipeline.experiment_file_path):

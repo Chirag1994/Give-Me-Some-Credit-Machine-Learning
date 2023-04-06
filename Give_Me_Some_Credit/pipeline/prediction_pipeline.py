@@ -108,15 +108,20 @@ class DefaultPredictor:
             df = pd.DataFrame(X)
             if df.shape == (1, 5):
                 default_probability = model.predict(df)[:, 1]
-                return default_probability
-            elif df.shape[1] == 12:
+                defaulter = 1 if default_probability > THRESHOLD else 0
+                return defaulter
+            elif df.shape[1] == 11:
                 schema_file_path = os.path.join(ROOT_DIR, SCHEMA_FILE_PATH)
                 dataset_schema = read_yaml_file(file_path=schema_file_path)
                 cols_to_drop = [
                     col for col in df.columns if col not in dataset_schema[USE_COLS_KEY]
                 ]
                 df.drop(columns=cols_to_drop, axis=1, inplace=True)
-                default_probability = model.predict(df)[:, 1]
-                return default_probability
+                df["default_probability"] = model.predict(df)[:, 1]
+                df["defaulter"] = df["default_probability"].apply(
+                    lambda x: 1 if x > THRESHOLD else 0
+                )
+                return df["defaulter"].values
+
         except Exception as e:
             raise CreditException(e, sys) from e

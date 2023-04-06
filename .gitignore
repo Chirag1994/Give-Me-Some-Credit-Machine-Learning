@@ -132,7 +132,7 @@ dmypy.json
 .vscode/
 
 # Artifacts folder
-Credit_Default_Pipeline/
+Give_Me_Some_Credit/artifact/
 
 # Logs folder
 logs/

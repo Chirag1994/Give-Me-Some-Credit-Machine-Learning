@@ -1,7 +1,7 @@
 .vscode/
 .gitignore
 .git
-Credit_Default_Pipeline/
+Give_Me_Some_Credit/artifact/
 logs/
 saved_models/
 # Temporary notebook

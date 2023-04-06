@@ -6,13 +6,13 @@ CURRENT_TIME_STAMP = f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
 ROOT_DIR = os.getcwd()
 CONFIG_DIR = "config"
 CONFIG_FILE = "config.yaml"
-CONFIG_FILE_PATH = os.path.join(CONFIG_DIR, CONFIG_FILE)
+CONFIG_FILE_PATH = os.path.join(ROOT_DIR, CONFIG_DIR, CONFIG_FILE)
 
 SCHEMA_FILE = "schema.yaml"
-SCHEMA_FILE_PATH = os.path.join(CONFIG_DIR, SCHEMA_FILE)
+SCHEMA_FILE_PATH = os.path.join(ROOT_DIR, CONFIG_DIR, SCHEMA_FILE)
 
 MODEL_FILE = "model.yaml"
-MODEL_YAML_FILE_PATH = os.path.join(CONFIG_DIR, MODEL_FILE)
+MODEL_YAML_FILE_PATH = os.path.join(ROOT_DIR, CONFIG_DIR, MODEL_FILE)
 
 ## Training related variables
 TRAINING_PIPELINE_CONFIG_KEY = "training_pipeline_config"
@@ -97,3 +97,5 @@ MODEL_PATH_KEY = "model_path"
 EXPERIMENT_DIR_NAME = "experiment"
 EXPERIMENT_FILE_NAME = "experiment.csv"
 TARGET_COLUMN_NAME = "target_column"
+
+THRESHOLD = 0.08928615463036814

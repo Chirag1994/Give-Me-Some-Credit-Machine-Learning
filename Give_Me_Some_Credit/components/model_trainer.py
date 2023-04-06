@@ -122,20 +122,6 @@ class ModelTrainer:
             logging.info(f"Saving model at path: {trained_model_file_path}")
             save_object(file_path=trained_model_file_path, obj=trained_credit_model)
 
-            ## Writing a yaml file to store the threshold value ##
-            threshold_file_path = os.path.join(
-                "Credit_Default_Pipeline",
-                "artifact",
-                MODEL_TRAINER_ARTIFACT_DIR_KEY,
-                CURRENT_TIME_STAMP,
-                "threshold.yaml",
-            )
-            threshold_content = {"threshold": threshold}
-            if os.path.exists(threshold_file_path):
-                os.remove(threshold_file_path)
-            write_yaml_file(file_path=threshold_file_path, data=threshold_content)
-            ##
-
             model_trainer_artifact = ModelTrainerArtifact(
                 is_trained=True,
                 message="Model Trained Successfully.",
