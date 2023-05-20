@@ -42,3 +42,15 @@ The pipeline package contains 2 modules:
 1. Training_pipeline: This module is responsible for instantiating the entire pipeline starting right from Data Ingestion till Model Training.
 
 2. Prediction_pipeline: This module is responsible for getting the predictions on new unseen data. This supports both single as well as batch prediction. The predictions are made using the model saved after training the model into a pickle object.
+
+---
+
+### Tech Stack
+
+- Programming Language: Python3
+- Data Manipulation and Analysis: Pandas, Matplotlib, Seaborn
+- Model Training: Scikit-Learn
+- Containerizing the application: Docker
+- Web Development: HTML, CSS, Flask
+- CI/CD Workflow: GitHub Actions
+- Deployment: AWS ECR and AWS EC2
