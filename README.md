@@ -1,7 +1,5 @@
 # Give-Me-Some-Credit-Machine-Learning
 
----
-
 ## Problem Statement
 
 Banks play a crucial role in market economies. They decide who can get finance and on what terms and can make or break investment decisions. For markets and society to function, individuals and companies need access to credit.
@@ -11,15 +9,11 @@ Credit scoring algorithms, which make a guess at the probability of default, are
 The goal of this project is to build a model utilizing the historical data on 250K
 borrowers to predict if someone/borrower will experience financial distress in the next 2 years. This is a supervised machine learning problem, specifically binary classificaton problem.
 
----
-
 ## Dataset Description
 
 The dataset has been taken from the [Kaggle](https://www.kaggle.com/c/GiveMeSomeCredit) which contains Behavioural and Demographic Information of the borrowers like Age, Debt Ratio, Number of Dependents in the family etc..
 The training dataset contains 150k customer information, while test dataset contains
 100k customer information.
-
----
 
 ## Components
 
@@ -33,8 +27,6 @@ The package is comprised of several modules:
 
 4. Model Trainer: This module is responsible for training the model on the transformed training dataset (achieved in Data Transformation stage). As part of the training, we trained Logistic Regression, Random Forest and XGBoost models.
 
----
-
 ## Pipeline
 
 The pipeline package contains 2 modules:
@@ -42,8 +34,6 @@ The pipeline package contains 2 modules:
 1. Training_pipeline: This module is responsible for instantiating the entire pipeline starting right from Data Ingestion till Model Training.
 
 2. Prediction_pipeline: This module is responsible for getting the predictions on new unseen data. This supports both single as well as batch prediction. The predictions are made using the model saved after training the model into a pickle object.
-
----
 
 ### Tech Stack
 
